@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-image: url(backimg.jpg);
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+        }
+        .text-background {
+            color:#fff;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper text-background">
+        <h1>The Psychic Game</h1>
+        <p>Guess what letter I'm thinking of</p>
+        <p id="number-text">Guesses Left:</p>
+        <p id="letters-text">Your Guess so far:</p>
+        <p id="wins-text">Wins:</p>
+        <p id="losses-text">Losses:</p>
+
+    </div>
+
+    <script>
+            var computerChoice = "";
+            var userGuess = "";
+            var numberGuesses = 9;
+            var lettersGuessed = [];
+            var wins = 0;
+            var losses = 0;
+
+            var letters = [
+                "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+                "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
+            ];
+                
+            function randomLetterChoice() {
+                return computerChoice = letters[Math.floor(Math.random()*letters.length)];
+            } 
+
+            function resetGame () {
+                numberGuesses=8;
+                lettersGuessed=[];
+                randomLetterChoice();
+            }
+                randomLetterChoice();
+           
+            document.onkeyup = function (event) {
+                
+                var userGuess = event.key.toLowerCase();
+                    console.log("Computer Letter: " + computerChoice);
+                    console.log("User Guess: " + userGuess);
+                    
+                    
+                if (letters.indexOf(userGuess.toLowerCase()) !== -1) {
+
+                    if (userGuess !== computerChoice) {
+                        numberGuesses--;
+                            console.log("Number Guesses: " + numberGuesses);
+                        lettersGuessed.push(userGuess);
+                            console.log(lettersGuessed);
+
+                    
+                    } if (userGuess === computerChoice) {
+                        wins++;
+                            console.log("Wins: " + wins);
+                        resetGame();
+
+                    } if (numberGuesses === 0) {
+                        losses++;
+                            console.log("Losses: " + losses);
+                        resetGame();
+                    }
+                }
+                document.getElementById("number-text").textContent = "Guesses Left: " + numberGuesses;
+                document.getElementById("letters-text").textContent = "Your Guess so far: " + lettersGuessed;
+                document.getElementById("wins-text").textContent = "Wins: " + wins;
+                document.getElementById("losses-text").textContent = "Losses: " + losses;   
+            };  
+    </script>
+</body>
+
+</html>
